@@ -50,9 +50,12 @@ function ValidateWordAmountText() {
     var wordAmountValue = parseInt(wordAmountTextValue);
 
     if (isNaN(wordAmountValue)) {
+        SendInvalidAlert('Only use whole numbers')
         return 0;
     }
 
+    var invalidAlert = document.getElementById('invalidAmountAlert');
+    invalidAlert.style.display = "none";
     return wordAmountValue;
 }
 
@@ -65,7 +68,11 @@ function DisplayRandomWord() {
     if (isMultiWord) {
         var validation = ValidateWordAmountText();
         if (validation < 1) {
-            SendInvalidAlert();
+            SendInvalidAlert("Please input a number");
+            return;
+        }
+        if (validation > 10000) {
+            SendInvalidAlert("Please use a smaller number! Preferrably 10,000 or below.");
             return;
         }
         var invalidAlert = document.getElementById('invalidAmountAlert');
@@ -84,9 +91,11 @@ function DisplayRandomWord() {
     counterContainer.innerHTML += '<p>Words Generated: ' + GenerationCounter + '</p>';
 }
 
-function SendInvalidAlert() {
+function SendInvalidAlert(message = "") {
     var invalidAlert = document.getElementById('invalidAmountAlert');
     invalidAlert.classList.add('is-invalid');
+    invalidAlert.style.display = "block";
+    invalidAlert.innerText = "Invalid amount! " + message;
 }
 
 function ResetContainers() {
@@ -113,3 +122,4 @@ function OnMultiWordCheck() {
 document.getElementById('generateRandomWord').addEventListener('click', DisplayRandomWord);
 document.getElementById('hideResults').addEventListener('click', ResetContainers);
 document.getElementById('multiWordCheckbox').addEventListener('change', OnMultiWordCheck);
+document.getElementById('wordAmountText').addEventListener('input', ValidateWordAmountText);
