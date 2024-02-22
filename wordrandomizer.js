@@ -54,6 +54,11 @@ function ValidateWordAmountText() {
         return 0;
     }
 
+    if (validation > 10000) {
+        SendInvalidAlert("Please use a smaller number! Preferrably 10,000 or below.");
+        return;
+    }
+
     var invalidAlert = document.getElementById('invalidAmountAlert');
     invalidAlert.style.display = "none";
     return wordAmountValue;
@@ -71,10 +76,7 @@ function DisplayRandomWord() {
             SendInvalidAlert("Please input a number");
             return;
         }
-        if (validation > 10000) {
-            SendInvalidAlert("Please use a smaller number! Preferrably 10,000 or below.");
-            return;
-        }
+        
         var invalidAlert = document.getElementById('invalidAmountAlert');
         invalidAlert.classList.remove('is-invalid');
         wordAmount = validation;
