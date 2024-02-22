@@ -56,7 +56,7 @@ function ValidateWordAmountText() {
 
     if (wordAmountValue > 10000) {
         SendInvalidAlert("Please use a smaller number! Preferrably 10,000 or below.");
-        return;
+        return 0;
     }
 
     var invalidAlert = document.getElementById('invalidAmountAlert');
